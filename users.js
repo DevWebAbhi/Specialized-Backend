@@ -26,7 +26,12 @@ if(typeof email=="string" && email.length>5 && typeof name =="string" && name.le
         return;
     }
    const status= await signup(name,email,password);
-   res.send({msg:status});
+
+   const token=await token(user._id);
+    if(token=="error"){
+        res.send({msg:"error"});
+    }
+   res.send({msg:status,name:user.name,token:token});
 }else{
     res.send({msg:"error"});
 }
@@ -46,7 +51,7 @@ routerUser.post("/login",async(req,res)=>{
                     if(code!="error"){
                         res.send({msg:"Successfull",token:code});
                     }else{
-                        res.send({msg:"error1"});
+                        res.send({msg:"error"});
                     }
                     }else if(check==false){
                         res.send({msg:"Not exist"});
@@ -70,7 +75,7 @@ async function loginEncrypt(...a){
         const compare=await bcrypt.compareSync(password, hashed);
         return compare;
     } catch (error) {
-        return "error2";
+        return "error";
     }
 }
 
