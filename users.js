@@ -27,12 +27,14 @@ if(typeof email=="string" && email.length>5 && typeof name =="string" && name.le
     }
    const status= await signup(name,email,password);
     const candidate=await UserModel.findOne({email:email});
-   const tokens=await token(candidate._id);
-    if(tokens=="error"){
+    const candidatee= await candidate;
+   const tokens=await token(candidatee._id);
+   const tokenss=await tokens;
+    if(tokenss=="error"){
         res.send({msg:"error"});
         return;
     }
-   res.send({msg:status,name:candidate.name,token:tokens});
+   res.send({msg:status,name:candidate.name,token:tokenss});
 }else{
     res.send({msg:"error"});
 }
