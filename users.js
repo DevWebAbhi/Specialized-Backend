@@ -34,7 +34,7 @@ if(typeof email=="string" && email.length>5 && typeof name =="string" && name.le
         res.send({msg:"error"});
         return;
     }
-   res.send({msg:status,name:candidate.name,token:tokenss});
+   res.send({msg:status,name:candidatee.name,token:tokenss,email:candidatee.email});
 }else{
     res.send({msg:"error"});
 }
@@ -52,7 +52,7 @@ routerUser.post("/login",async(req,res)=>{
                     if(check==true){
                     const code= await token(user._id);
                     if(code!="error"){
-                        res.send({msg:"Successfull",token:code});
+                        res.send({msg:"Successfull",token:code,name:user.name,email:user.email});
                     }else{
                         res.send({msg:"error"});
                     }
