@@ -55,6 +55,23 @@ routerProduct.get("/",async(req,res)=>{
     }
 })
 
+
+routerProduct.get("/singleproduct/:id",async(req,res)=>{
+    const{id}=req.params;
+    try {
+        const modell= await ProductModel.findOne({id:id});
+        const model=await modell;
+        console.log(model)
+        if(model==null){
+            res.send({msg:"No Product"});
+            return;
+        }
+        res.send({msg:"successful",Data:model});
+    } catch (error) {
+        res.send({msg:"error"});
+    }
+
+})
 module.exports={
     routerProduct
 }

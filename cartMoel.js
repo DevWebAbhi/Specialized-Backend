@@ -2,7 +2,7 @@ const mongoose=require("mongoose");
 
 
 const cartSchema=mongoose.Schema({
-    id: {type:String,reqired:true},
+    id: {type:Number,reqired:true},
 title: {type:String,reqired:true},
 image: {type:String,reqired:true},
 description: {type:String,reqired:true},
