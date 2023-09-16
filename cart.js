@@ -36,7 +36,7 @@ routerCart.post("/post",async(req,res)=>{
     }
 })
 
-routerCart.delete("/remove",async(req,res)=>{
+routerCart.delete("/remove/:id",async(req,res)=>{
     const{id}=req.params;
     try {
         await CartModel.deleteOne({id:id});
