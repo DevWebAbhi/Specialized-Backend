@@ -15,27 +15,27 @@ const JWTKEY=process.env.JWTKEY;
 
 routerUser.post("/signup",async(req,res)=>{
 const{name,email,password}=req.body;
-if(password.length<4){
-    res.send({msg:"Enter valid password"});
-    return;
-}
-if(typeof email=="string" && email.length>5 && typeof name =="string" && name.length>0 && typeof password=="string"){
-    const user=await UserModel.findOne({email:email});
-    if(user){
-        res.send({msg:"You are already a existing user"});
+try {
+    if(password.length<4){
+        res.send({msg:"Enter valid password"});
         return;
     }
-   const status= await signup(name,email,password);
-    const candidate=await UserModel.findOne({email:email});
-    const candidatee= await candidate;
-   const tokens=await token(candidatee._id);
-   const tokenss=await tokens;
-    if(tokenss=="error"){
+    if(typeof email=="string" && email.length>5 && typeof name =="string" && name.length>0 && typeof password=="string"){
+        const user=await UserModel.findOne({email:email});
+        if(user){
+            res.send({msg:"You are already a existing user"});
+            return;
+        }
+       const status= await signup(name,email,password);
+        if(status=="error"){
+            res.send({msg:"error"});
+            return;
+        }
+       res.send({msg:status});
+    }else{
         res.send({msg:"error"});
-        return;
     }
-   res.send({msg:status,name:candidatee.name,token:tokenss,email:candidatee.email});
-}else{
+} catch (error) {
     res.send({msg:"error"});
 }
 })
