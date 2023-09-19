@@ -39,8 +39,13 @@ routerCart.post("/post",async(req,res)=>{
 routerCart.delete("/remove/:id",async(req,res)=>{
     const{id}=req.params;
     try {
-        await CartModel.deleteOne({id:id});
-        res.send({msg:"deleted"});
+        const remover=CartModel.deleteOne({id:id});
+        remover.then((r)=>{
+            res.send({msg:"deleted"});
+        }).catch((err)=>{
+            res.send({msg:"error"});
+        })
+       
     } catch (error) {
         res.send({msg:"error"});
     }
