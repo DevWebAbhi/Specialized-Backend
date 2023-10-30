@@ -1,5 +1,6 @@
 const express=require("express");
 
+
 const routerProduct=express.Router();
 
 const{ProductModel}=require("./productModel");
