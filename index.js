@@ -16,6 +16,7 @@ app.get("/",(req,res)=>{
     res.send({msg:"Welcome To Specliazed Backend"});
 })
 
+app.use('/Files', express.static(__dirname + '/uploads'));
 async function auth(req,res,next){
     const token=req.headers.authorization.split(" ")[1];
     console.log(JWTKEY,token)
